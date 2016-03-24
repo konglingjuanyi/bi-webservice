@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+				default-autowire="byName"> 
+	<bean id="servletContextResourceLoader" class="org.springframework.web.context.support.ServletContextResourcePatternResolver">
+		<constructor-arg>
+			<bean id="servletContext" class="org.springframework.web.context.support.ServletContextFactoryBean"/>
+		</constructor-arg>
+	</bean>
+	<context:property-placeholder location="classpath*:*.properties" />
+ 	<!--
+ 	<bean id="dataSource1" class="org.springframework.jndi.JndiObjectFactoryBean">
+	      <property name="jndiName" value="java:comp/env/cmsDS"/>
+	</bean>
+	-->
+	<!-- 初始缓存数据 add by Jeff 2015.07.15 -->
+<!--     <bean id="redisCacheInitFactory" class="com.chengfeng.ne.redis.action.RedisCacheInitFactory"/> -->
+	
+	<bean id="webDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	  <property name="driverClass" value="${com.thinkjf.c3p0.driverClass}" /> 
+	  <property name="jdbcUrl" value="${com.thinkjf.c3p0.jdbcUrl}" /> 
+	  <property name="user" value="${com.thinkjf.c3p0.user}" /> 
+	  <property name="password" value="${com.thinkjf.c3p0.password}" /> 
+	  <property name="minPoolSize" value="${com.thinkjf.c3p0.minPoolSize}" /> 
+	  <property name="maxPoolSize" value="${com.thinkjf.c3p0.maxPoolSize}" /> 
+	  <property name="initialPoolSize" value="${com.thinkjf.c3p0.initialPoolSize}" /> 
+	  <property name="maxIdleTime" value="${com.thinkjf.c3p0.maxIdleTime}" /> 
+	  <property name="acquireIncrement" value="${com.thinkjf.c3p0.acquireIncrement}" /> 
+	  <property name="maxStatements" value="${com.thinkjf.c3p0.maxStatements}" /> 
+	  <property name="maxStatementsPerConnection" value="${com.thinkjf.c3p0.maxStatementsPerConnection}" /> 
+	  <property name="idleConnectionTestPeriod" value="${com.thinkjf.c3p0.idleConnectionTestPeriod}" /> 
+	  <property name="acquireRetryAttempts" value="${com.thinkjf.c3p0.acquireRetryAttempts}" /> 
+	  <property name="breakAfterAcquireFailure" value="${com.thinkjf.c3p0.breakAfterAcquireFailure}" /> 
+	  <property name="testConnectionOnCheckout" value="${com.thinkjf.c3p0.testConnectionOnCheckout}" /> 
+  	</bean> 
+ 
+  	<!--  rapid SqlMapClientFactoryBean与spring SqlMapClientFactoryBean的区别是可以指定sqlExecutor-->
+	<!--  指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,MySQLDialect,HSQLDialect-->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="webDataSource" />
+		<property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+		<property name="mappingLocations">
+			<value>classpath*:/com/**/maps/*SqlMap.xml</value>
+		</property>
+	</bean>
+ 
+	
+ 
+    <bean id="applicationContextHolder" class="com.thinkjf.core.utils.spring.ApplicationContextHolder" />
+
+   <!--  Ehcache -->
+ 	<bean id="defaultCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">    
+	    <property name="configLocation">    
+	      <value>classpath:ehcache.xml</value>    
+	    </property>    
+  	</bean>
+ 	
+ 	<!-- <bean id="backupBeforeAdvice" class="com.chengfeng.common.advice.BackupBeforeAdvice"></bean> -->
+ 	
+ 	<bean id="sessionFactory" class="com.thinkjf.dao.orm.hibernate.extension.ExtensionAnnotationSessionFactoryBean">
+		<property name="dataSource" ref="webDataSource"/>
+		<property name="annotatedClassesLocations">
+			<list>
+				<value>classpath*:com/thinkjf/*/entity/**/*.class</value>
+				<value>classpath*:com/thinkjf/apps/*/entity/**/*.class</value>
+				<value>classpath*:com/thinkjf/demo/*/domain/*.class</value>
+			</list>
+		</property>
+		<property name="hbmLocations">
+			<list>
+				<value>classpath*:com/thinkjf/*/entity/**/*.hbm.xml</value>
+			</list>
+		</property>
+		
+		<property name="mappingResources">
+			<list>
+				<value>jbpm.repository.hbm.xml</value>
+	            <value>jbpm.execution.hbm.xml</value>
+	            <value>jbpm.history.hbm.xml</value>
+	            <value>jbpm.task.hbm.xml</value>
+	            <value>jbpm.identity.hbm.xml</value>
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.jdbc.fetch_size">20</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+	
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.chengfeng.*.service..*ServiceImpl.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="do*" read-only="false" propagation="REQUIRED" rollback-for="com.thinkjf.service.ServiceException,Exception,Throwable"/>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="search*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice> 
+	
+	
+	
+  	<!-- <bean id="logAspect" class="com.thinkjf.common.log.LogAspect"/> --> 
+  	  	
+	<context:component-scan base-package="com.thinkjf"/>
+	<context:component-scan base-package="com.chengfeng"/>
+	
+		<!-- 启动对@AspectJ注解的支持 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+ 	<!-- 引入redis属性配置文件 -->
+    
+ 
+</beans> 
+	

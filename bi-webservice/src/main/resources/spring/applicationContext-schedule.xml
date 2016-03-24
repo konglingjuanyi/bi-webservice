@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+	default-autowire="byName">
+	
+	<bean id ="kjClient" class= "com.chengfeng.kj.webservice.client.KjClient">
+     </bean >
+    <bean id="hsOrdStatusClient" class="com.chengfeng.kj.webservice.client.HsOrdStatusClient"></bean>
+     <!-- 生产者Task -->
+     <bean id ="kjEmployeeClientTask"
+           class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+            <property name ="targetObject" ref= "kjClient" /><!--关联的bean -->
+            <property name ="targetMethod" value= "sendEmployee" /><!--关联的bean的方法 -->
+            <!--false表示等上一个任务执行完后再开启新的任务 -->
+            <property name ="concurrent" value="false" /><!--配置为false不允许任务并发执行 -->
+     </bean >
+     
+     <bean id ="kjSiteClientTask"
+           class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+            <property name ="targetObject" ref= "kjClient" /><!--关联的bean -->
+            <property name ="targetMethod" value= "sendSite" /><!--关联的bean的方法 -->
+            <!--false表示等上一个任务执行完后再开启新的任务 -->
+            <property name ="concurrent" value="false" /><!--配置为false不允许任务并发执行 -->
+     </bean >
+     
+     <bean id ="kjUpdateSiteClientTask"
+           class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+            <property name ="targetObject" ref= "kjClient" /><!--关联的bean -->
+            <property name ="targetMethod" value= "sendUpdateSite" /><!--关联的bean的方法 -->
+            <!--false表示等上一个任务执行完后再开启新的任务 -->
+            <property name ="concurrent" value="false" /><!--配置为false不允许任务并发执行 -->
+     </bean >
+     
+     <bean id ="kjUpdateEmployeeClientTask"
+           class= "org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean" >
+            <property name ="targetObject" ref= "kjClient" /><!--关联的bean -->
+            <property name ="targetMethod" value= "sendUpdateEmployee" /><!--关联的bean的方法 -->
+            <!--false表示等上一个任务执行完后再开启新的任务 -->
+            <property name ="concurrent" value="false" /><!--配置为false不允许任务并发执行 -->
+     </bean >
+     
+     <!-- 定义定时发送订单状态 -->
+     <bean id="kjOrdStatusTask"
+           class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+           <property name="targetObject" ref="hsOrdStatusClient"/>
+           <property name="targetMethod" value="sendOrdStatus"/>
+           <property name ="concurrent" value="false" /><!--配置为false不允许任务并发执行 -->
+     </bean>
+     
+     <!--每个任务独有的触发器:每隔30秒执行一次 -->
+     <bean id ="kjEmployeeClientTrigger" class= "org.springframework.scheduling.quartz.CronTriggerBean" >
+            <property name ="jobDetail" ref="kjEmployeeClientTask" />
+            <property name ="cronExpression" value= "0/30 * * * * ?" />
+     </bean >
+     <bean id ="kjSiteClientTrigger" class= "org.springframework.scheduling.quartz.CronTriggerBean" >
+            <property name ="jobDetail" ref="kjSiteClientTask" />
+            <property name ="cronExpression" value= "0/30 * * * * ?" />
+     </bean >
+     
+     <bean id ="kjUpdateEmployeeClientTrigger" class= "org.springframework.scheduling.quartz.CronTriggerBean" >
+            <property name ="jobDetail" ref="kjUpdateEmployeeClientTask" />
+            <property name ="cronExpression" value= " 0 0/1 * * * ? "/>
+     </bean >
+     <bean id ="kjUpdateSiteClientTrigger" class= "org.springframework.scheduling.quartz.CronTriggerBean" >
+            <property name ="jobDetail" ref="kjUpdateSiteClientTask" />
+            <property name ="cronExpression" value= " 0 0/1 * * * ? " />
+     </bean >
+     
+     <bean id="kjOrdStatusClientTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+           <property name="jobDetail" ref="kjOrdStatusTask"/>
+           <property name="cronExpression" value=" 0 0/5 * * * ? "/>
+     </bean>
+     
+     <!-- 定时器bean -->
+     <bean id ="scheduler"
+           class= "org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+            <property name ="triggers">
+                 <list >
+                     <!-- <ref bean="kjEmployeeClientTrigger"/> --> <!--是否启用定时任务-->
+                     <!-- <ref bean="kjSiteClientTrigger" /> -->
+                     <!-- <ref bean="kjUpdateSiteClientTrigger"/> -->
+                     <ref bean="kjOrdStatusClientTrigger"/>
+                     <!-- <ref bean="kjUpdateEmployeeClientTrigger" /> -->
+                 </list>
+            </property>
+     </bean >
+</beans>

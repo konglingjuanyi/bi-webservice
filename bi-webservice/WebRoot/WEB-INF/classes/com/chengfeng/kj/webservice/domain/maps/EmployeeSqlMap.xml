@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="EmployeeVO">
+	<typeAlias alias="Employee" type="com.chengfeng.kj.webservice.domain.EmployeeVO" />
+	<resultMap id="EmployeeResult" class="Employee">
+		<result property="employeeCode" column="EMPLOYEE_CODE" />
+		<result property="employeeName" column="EMPLOYEE_NAME"/>
+		<result property="deptName" column="DEPT_NAME"/>
+		<result property="ownerSite" column="OWNER_SITE" />
+		<result property="phone" column="PHONE" />
+		<result property="barPassword" column="BAR_PASSWORD" />
+		<result property="operFalg" column="OPER_FALG" />
+		<result property="checkState" column="CHECK_STATE" />
+		<result property="alipay" column="ALIPAY" />
+	</resultMap>
+	<!--公共抽取的列 -->
+    <sql id="EmployeeSql">
+       <![CDATA[
+        EMPLOYEE_CODE,
+        EMPLOYEE_NAME,
+        DEPT_NAME,
+        BAR_PASSWORD
+	    ]]>
+    </sql>
+	
+	<!-- 分页查询 所有员工，按EMPLOYEE_CODE排序 升序 -->
+	<!-- <select id="queryPagedList" parameterClass="java.util.Map" resultMap="EmployeeResult">
+		SELECT 
+	      <include refid="EmployeeSql" />,PHONE,(SELECT SITE_CODE FROM TAB_SITE WHERE SITE_NAME = A.OWNER_SITE) OWNER_SITE,OPER_FLAG
+	  <![CDATA[
+	      FROM TAB_EMPLOYEE A ORDER BY A.EMPLOYEE_CODE
+       ]]>
+	</select>
+	<select id="recordCount" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		SELECT COUNT(1) FROM TAB_EMPLOYEE A ORDER BY A.EMPLOYEE_CODE
+	</select> -->
+	
+	<!-- 查询所有 -->
+	<select id="queryEmployee" parameterClass="java.util.Map" resultMap="EmployeeResult">
+		<!-- SELECT <include refid="EmployeeSql" />,PHONE,OPER_FLAG FORM (
+	      SELECT <include refid="EmployeeSql" />,PHONE,OPER_FLAG,ROWNUM RN FROM (SELECT 
+	      <include refid="EmployeeSql" />,PHONE,(SELECT SITE_CODE FROM TAB_SITE WHERE SITE_NAME = A.OWNER_SITE) OWNER_SITE,OPER_FLAG
+	      FROM TAB_EMPLOYEE A ORDER BY A.EMPLOYEE_CODE) 
+	      <![CDATA[
+	      	WHERE ROWNUM <= (#countpage#+1) * #pagenumber#)  WHERE RN > #pagenumber# * #countpage#
+	      ]]> -->
+	      
+	      SELECT 
+	      <include refid="EmployeeSql" />,PHONE,(SELECT SITE_CODE FROM TAB_SITE WHERE SITE_NAME = A.OWNER_SITE) OWNER_SITE,OPER_FLAG
+	      <![CDATA[
+	      FROM TAB_EMPLOYEE A WHERE ROWNUM <= 500 ORDER BY A.EMPLOYEE_CODE 
+	      ]]>
+	</select>
+	<!-- <delete id="deleteEmployeeBySend" parameterClass="java.util.Map">
+        DELETE FROM TAB_EMPLOYEE WHERE EMPLOYEE_CODE = #employeeCode#
+	</delete> -->
+	
+	<!-- 查询两小时区间更新数据 -->
+	<select id="queryUpdateEmployee" parameterClass="java.util.Map" resultMap="EmployeeResult">
+	      SELECT 
+	      EMPCODE AS EMPLOYEE_CODE,EMPNAME AS EMPLOYEE_NAME,DEPT_NAME,BAR_PASSWD AS BAR_PASSWORD,CHECK_STATE,ALIPAY,
+	      NULL PHONE,(SELECT SITE_CODE FROM TAB_SITE WHERE SITE_NAME = A.SITE_NAME) OWNER_SITE,NULL OPER_FALG
+	  <![CDATA[
+	      FROM WAYBILL_KDT_USER_INFO A WHERE 
+	      	
+	      	A.EMPCODE IN ('250240001', '561010008')
+	       ]]>
+	</select>
+	 <!-- FROM TAB_GPRS_GK_EMPLOYEE A WHERE UPDATE_TIME < SYSDATE AND UPDATE_TIME > (sysdate - interval '2' day) -->
+	 <!-- LASTUPDATE < SYSDATE AND LASTUPDATE > (SYSDATE - TO_DSINTERVAL('0 00:06:00'))
+	      	AND LASTUPDATE IS NOT NULL -->
+	<!-- (SYSDATE - TO_DSINTERVAL('0 00:20:00')) -->
+	<!-- (sysdate - interval '7' day)  前7天-->
+	
+	
+</sqlMap>

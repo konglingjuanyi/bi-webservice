@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib>
+	<description>My Tag Library</description>
+
+	<function>
+			<name>privilege</name>
+			<function-class>com.thinkjf.common.web.tag.PrivilegeTag</function-class>
+			<function-signature>boolean hasPrivilege(java.lang.String)</function-signature>
+			<description>hasPrivilege</description>
+	</function>
+</taglib>

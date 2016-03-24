@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--
+    <context id="context1" >
+    <jdbcConnection driverClass="???" connectionURL="???" userId="???" password="???" />
+    <javaModelGenerator targetPackage="???" targetProject="???" />
+    <sqlMapGenerator targetPackage="???" targetProject="???" />
+    <javaClientGenerator targetPackage="???" targetProject="???" type="XMLMAPPER" />
+    <table schema="???" tableName="???" >
+    <columnOverride column="???" property="???" />
+    </table>
+    </context>
+    -->
+	
+	<classPathEntry location="D:\doc\jar\ojdbc14-10.jar" />
+    <context id="context2" targetRuntime="Ibatis2Java5">
+    	<commentGenerator>
+			<property name="suppressAllComments" value="true"/>
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+        <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@192.168.0.180:1521:orcl" userId="CFDEV" password="123456"/>
+		<javaTypeResolver>
+	         <property name="forceBigDecimals" value="false" />
+	    </javaTypeResolver>
+	    <javaModelGenerator targetPackage="com.chengfeng.ne.global.domain" targetProject="ne1" >
+	    	<property name="enableSubPackages" value="false" />
+	        <!-- domain对象的属性如果是string类型，去掉空格 -->
+	        <property name="trimStrings" value="true" />
+	    </javaModelGenerator>
+	    <sqlMapGenerator targetPackage="com.chengfeng.ne.global.domain.maps" targetProject="ne1" />
+        <javaClientGenerator targetPackage="com.chengfeng.ne.global.dao" targetProject="ne1" type="spring"/>
+	    <table schema="CFDEV"  tableName="HS_GLOBAL_BUSI_LOG" 
+	             domainObjectName="BusiLog"
+	     		 enableInsert="true"
+	     		 enableSelectByPrimaryKey="true"
+	             enableUpdateByPrimaryKey="true"
+	             enableDeleteByPrimaryKey="true"
+	             enableSelectByExample="false"
+	             enableUpdateByExample="false"
+	             enableCountByExample="false" 
+	             enableDeleteByExample="false" >
+			<property name="useActualColumnNames" value="false" />
+	    </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,153 @@
+<?page id="pgEwbQuery" title="${c:l('ewbquery.page.title')}" cacheable="false" language="xul/html" zscriptLanguage="Java" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winEwbQuery"?>
+<zk>
+	<style src="/css/model.css" />
+	<style src="/css/base.css" />
+	<style>
+		.tabpanel{overflow:auto;padding-bottom:10px;} .step5 { width:
+		970px; height: 31px; background-image:
+		url("/images/query_bg1.png"); background-position: 0 0px;
+		background-repeat: no-repeat; }
+
+		.step4 { width: 970px; height: 31px; background-image:
+		url("/images/query_bg1.png"); background-position: 0 -36px;
+		background-repeat: no-repeat; }
+
+		.step3 { width: 970px; height: 31px; background-image:
+		url("/images/query_bg1.png"); background-position: 0 -68px;
+		background-repeat: no-repeat; }
+
+		.step2 { width: 970px; height: 31px; background-image:
+		url("/images/query_bg1.png"); background-position: 0 -100px;
+		background-repeat: no-repeat; }
+
+		.step1 { width: 970px; height: 31px; background-image:
+		url("/images/query_bg1.png"); background-position: 0 -134px;
+		background-repeat: no-repeat; }
+
+		.titleOne { margin-left: 162px; padding-left: 20px; }
+
+		.titleOther { padding-left: 170px; }
+
+		.code { width: 170px; text-align: left; color: #00547a;
+		padding-top: 10px; } .codeLabel{
+		font-size:16px;color:red;font-weight: bold;}
+
+		.infoDiv { width: 100px; text-align: left; padding-left: 20px; }
+
+		.infoOne { width: 140px; }
+
+		.infoOther { width:200px; }
+
+		.infoSpace { width: 30px; } .infoHbox{ width:1080px; }
+		.clickLabel { color: red; cursor: pointer; font-weight: bold;
+		font-size: 14px; }
+
+		.item { border-top: 1px solid #8FB9D0; border-bottom: 1px solid
+		#8FB9D0; padding-bottom: 5px; padding-top: 5px; margin-bottom:
+		20px; width: 100%; background-color: #e9f2fb;}
+
+		.itemLabel{ color:#000000;}
+
+		.detailImage{
+		width:82px;height:17px;text-align:center;padding:2px 0 0 5px;
+		background-image:url("../images/detail.png"); cursor: pointer;}
+
+		.customerLabel{color:white;}
+
+		.detail { padding-top: 10px; padding-left: 20px; }
+
+		.flowstep { background-image: url("../images/query_bg.png");
+		background-color:rgba(0, 0, 0, 0); background-attachment:
+		scroll; background-repeat: no-repeat; background-position: 50%
+		-102px; }
+
+		.flowstep { color: #FFFFFF; font-family: 'arial black';
+		font-size: 18px; height: 34px; line-height: 34px; }
+
+		.font-set { color: #FFFFFF; font-family: 'arial black';
+		font-size: 18px; height: 34px; line-height: 34px; }
+
+		.stepImageOne { width: 104px; text-align: left; line-height:
+		32px; padding-left: 18px; }
+
+		.stepImageOther { width: 200px; text-align: center; line-height:
+		32px; }
+
+		.stepImageLast { width: 30px; padding-left: 90px; line-height:
+		32px; }
+
+		.step-no { background-position: 56% -34px; }
+
+		.step-two { background-position: 50% -170px; }
+
+		.step-cur { background-position: 50% 0; }
+
+		.step-last { background-position: 44% -136px; }
+
+		.four_last { background-position: 50% -240px; }
+
+		.step-right { background-position: 56% -204px; }
+
+		.step-left { background-position: 44% -68px; }
+
+		.step-end { background-position: -217px -36px; }
+
+		.no_scan {
+
+		}
+
+		.stepNum { color: #FFFFFF; font-family: ' arial black ';
+		font-size: 18px; font-weight: bold; }
+
+		.titleName { color: red; font-size: 14px; font-weight: bold; }
+
+		.redInfo { color: red; cursor: pointer;}
+
+		.blueInfo { color: blue; cursor: pointer;}
+
+		.fenInfo { color: #ff00ff; cursor: pointer;}
+
+		.z-checkbox input{ vertical-align:middle; margin:0 2px 2px; }
+		tr.z-listitem-over > td.z-listcell{ border:0px; } td.z-listcell{
+		border:0px; } tr.z-listitem-seld
+		.z-listcell-cnt,tr.z-listitem-over-seld
+		.z-listcell-cnt,tr.z-listitem-over .z-listcell-cnt{
+		color:#000000; } tr.z-listitem-seld.z-listitem > .z-listcell{
+		background-color:#a5daf5; background:linear-gradient(to bottom,
+		#cfebf8 0%, #a5daf5 100%);
+		filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#cfebf8',endColorStr='#a5daf5',gradientType='0');
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%,
+		from(#cfebf8), to(#a5daf5)); background:
+		-o-linear-gradient(top,#cfebf8, #a5daf5); background:
+		-moz-linear-gradient(top, #cfebf8, #a5daf5); }
+		tr.z-listitem-over.z-listitem > .z-listcell{
+		background-color:#d8f1fd; background:linear-gradient(to bottom,
+		#f0f8fe 0%, #d8f1fd 100%);
+		filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#f0f8fe',endColorStr='#d8f1fd',gradientType='0');
+		background: -webkit-gradient(linear, 0% 0%, 0% 100%,
+		from(#f0f8fe), to(#d8f1fd)); background:
+		-o-linear-gradient(top,#f0f8fe, #d8f1fd); background:
+		-moz-linear-gradient(top, #f0f8fe, #d8f1fd); } tr.z-row-over >
+		td.z-row-inner,tr.z-row-over > .z-cell{
+		background-color:#d8f1fd; background:linear-gradient(to bottom,
+		#f0f8fe 0%, #d8f1fd 100%); background: -webkit-gradient(linear,
+		0% 0%, 0% 100%, from(#f0f8fe), to(#d8f1fd)); background:
+		-o-linear-gradient(top,#f0f8fe, #d8f1fd); background:
+		-moz-linear-gradient(top, #f0f8fe, #d8f1fd); } tr.z-row
+		td.z-row-inner, tr.z-row .z-cell{ border:0px; } img.z-tab-img{
+		width:16px;height:16px; } .validatorPopup .z-hbox
+		.z-hbox-sep{width:0px;}
+	</style>
+	<window width="100%" height="100%" ctrlKeys="^q" id="winEwbQuery"
+		hflex="true" vflex="true" apply="${ewbQueryCommonController}">
+		<div hflex="true" vflex="true" style="overflow:auto;">
+			<div id="centerDiv" style="min-width:900px;" hflex="true"
+				vflex="true">
+
+			</div>
+		</div>
+	</window>
+</zk>

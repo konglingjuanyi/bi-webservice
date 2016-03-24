@@ -1,0 +1,253 @@
+<?page id="pgLogin" title="${c:l('login.page.title')}"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/apps/images/favicon.ico"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="winLogin"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?script type="text/javascript" src="/apps/images/login/login.js"?>
+<zk>
+	<style>
+		.body_bg{ background-color: #eff2f3; } .bg_center {
+		background-position: center; background-repeat: no-repeat; }
+
+		.win { }
+
+		.top_bg_B { background-image:
+		url("../apps/images/login/top_bg_B.png") }
+
+		.top_bg_C { background-image:
+		url("../images/ane_index_bg.png");background-position: left;}
+
+		.top_bg_A { background-image:
+		url("../apps/images/login/top_bg_A.png"); padding-top: 4px; }
+
+		.center_bg { padding-top: 50px; }
+
+		.login_bg { background-image:
+		url("../apps/images/login/login_bg.png");}
+
+		.login_btn { background-image:
+		url("../apps/images/login/login_btn_out.png"); border: 0px;
+		cursor: pointer; }
+
+		.top_href { text-decoration: none; font-weight: blod;
+		font-family: '微软雅黑'; color: white; font-size: 14px; }
+
+		.top_href:hover { font-size: 15px; }
+
+		.top_B_href { text-decoration: none; color: white; font-size:
+		15px; font-weight: bold; font-family: '微软雅黑'; }
+
+		.top_B_href:hover { font-size: 16px; color:white; }
+
+		.image_btn{ cursor:
+
+		pointer;text-align:center;padding-top:3px;color:white; }
+		.changeValidatorImage{ color:red; } .changeValidatorImage:hover{
+		color:blue;text-decoration: none; }
+
+		.bottom_text{ color: white; font-size: 20px; font-weight: bold;
+		font-family: '微软雅黑';}
+	</style>
+	<script type="text/javascript">
+
+
+
+
+		
+		<![CDATA[ document.oncontextmenu=function() { return false; }
+		]]>
+		
+		
+		
+		
+		
+	</script>
+	<window id="winLogin" xmlns:w="client"
+		style="min-width:1000px;min-height:625px;" apply="${loginController}"
+		onOK="controller.login()" sclass="body_bg" width="100%"
+		height="100%">
+		<div width="100%" height="612px" sclass="win bg_center">
+			<div sclass="top_bg_A bg_center" height="27px" width="100%"
+				align="right">
+				<hbox align="center" height="95%"
+					style="margin-right: 3px;">
+					<combobox width="80px" value="简体" readonly="true"
+						id="cboLoacle">
+						<comboitem label="简体" value="zh_CN"></comboitem>
+						<comboitem label="繁体" value="zh_TW"></comboitem>
+					</combobox>
+				</hbox>
+			</div>
+			<div height="78px" width="100%" sclass="top_bg_B bg_center"
+				align="center">
+				<borderlayout style="background-color: inherit;">
+					<west border="none"
+						style="background-color: inherit;">
+						<!-- <image src="../apps/images/login/logo.png">
+							</image> -->
+					</west>
+					<center border="none"
+						style="background-color: inherit;">
+						<div align="right" width="1000px"
+							style="padding-top:20px;">
+							<tablelayout columns="3">
+								<tablechildren width="75px"
+									style="text-align:right;">
+									<a href="" sclass="top_B_href">
+										${c:l('login.href.index')}
+									</a>
+								</tablechildren>
+								<!-- <tablechildren width="120px"
+									style="text-align:right;">
+									<a href="http://www.ane56.com"
+										target="_blank" sclass="top_B_href">
+										${c:l('login.href.website')}
+									</a>
+								</tablechildren>-->
+								<tablechildren width="120px"
+									style="text-align:right;">
+									<a href=""
+										target="_blank" sclass="top_B_href">
+										${c:l('login.href.information')}
+									</a> 
+								</tablechildren>
+								<!-- <tablechildren width="100px"
+									style="text-align:right;">
+									<a href="" sclass="top_B_href">
+									${c:l('login.href.Integral')}
+									</a>
+									</tablechildren> -->
+							</tablelayout>
+						</div>
+					</center>
+				</borderlayout>
+			</div>
+			<div width="100%" vflex="true" align="center">
+				<div vflex="true" id="divCenter" width="100%"
+					sclass="center_bg bg_center">
+					<div width="1000px" vflex="true" align="right">
+						<div width="286px" height="295px"
+							sclass="login_bg" align="left">
+							<vbox style="margin-left:34px;">
+								<hbox height="40px"
+									style="margin-top:55px;">
+									<image width="40px" height="40px"
+										src="../apps/images/login/user_out.png"
+										w:onMouseOver="changeImage(this.uuid,'user_over.png')"
+										w:onMouseOut="changeImage(this.uuid,'user_out.png')" />
+									<textbox id="txtUserName"
+										name="j_username" width="170px"
+										style="font-size:20px;border:0px;line-height:35px;height:35px;"
+										value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"
+										focus="true" />
+								</hbox>
+								<hbox height="40px"
+									style="margin-top:5px;">
+									<image width="40px" height="39px"
+										src="../apps/images/login/pass_out.png"
+										w:onMouseOver="changeImage(this.uuid,'pass_over.png')"
+										w:onMouseOut="changeImage(this.uuid,'pass_out.png')" />
+									<textbox id="txtUserPwd"
+										name="j_password" value="" width="170px" type="password"
+										style="font-size:20px;border:0px;line-height:35px;height:35px;font-family:'微软雅黑';" />
+								</hbox>
+								<div height="33px" hflex="true"
+									style="margin-top:5px;" align="left">
+									<hbox align="center" style="">
+										<textbox width="80px"
+											height="24px" id="txtValidatorCode"
+											style="border:0px;color:#b0b0b0;font-size:16px;">
+										</textbox>
+										<space width="2px"></space>
+										<div width="85px">
+										<image src="/servlet/safecode" id="imgCaptcha"></image>
+										</div>
+										<space width="2px"></space>
+										<image style="cursor: pointer;"	src="../apps/images/login/refresh1.png">
+										<attribute name="onClick">
+											Long timenow = new Date().getTime();
+											imgCaptcha.setSrc("/servlet/safecode?d="+timenow);
+										</attribute>
+										</image>
+									</hbox>
+								</div>
+								<div height="40px" width="175px">
+									<button sclass="login_btn"
+										width="219px"
+										w:onMouseOver="changeBtnImage(this.uuid,'login_btn_over.png')"
+										w:onMouseOut="changeBtnImage(this.uuid,'login_btn_out.png')"
+										height="40px" onClick="controller.login()" />
+								</div>
+								<div width="100%" align="right">
+									<label id="lblErrorInfo"
+										style="color:red" height="10px" />
+									<label id="lblIpInfo" style="color:red"  height="10px"/>
+								</div>
+							</vbox>
+						</div>
+					</div>
+
+					<div width="100%" height="27px" align="center">
+						<hbox style="margin-left:20px;">
+							<div width="20px" height="17px"
+								sclass="image_btn" id="image_btn1">
+								1
+							</div>
+							<space width="5px"></space>
+							<div width="20px" height="17px"
+								sclass="image_btn" id="image_btn2">
+								2
+							</div>
+						</hbox>
+					</div>
+				</div>
+
+				<div height="100px" width="100%"
+					style="padding-top:10px;background-repeat:repeat;"
+					sclass="top_bg_C bg_center" align="center">
+					<hbox align="end">
+						<div>
+							<image
+								src="../apps/images/login/bottom_pic1.png">
+							</image>
+							<label sclass="bottom_text" value="E路领先"></label>
+							<space width="30px"></space>
+						</div>
+						<div>
+							<image
+								src="../apps/images/login/bottom_pic2.png">
+							</image>
+							<label sclass="bottom_text" value="定时必达"></label>
+							<space width="30px"></space>
+						</div>
+						<div>
+							<image
+								src="../apps/images/login/bottom_pic3.png">
+							</image>
+							<label sclass="bottom_text" value="选择丞风"></label>
+							<space width="30px"></space>
+						</div>
+						<div>
+							<image
+								src="../apps/images/login/bottom_pic4.png">
+							</image>
+							<label sclass="bottom_text" value="成就梦想"></label>
+						</div>
+					</hbox>
+					<div align="center" style="margin-top:7px;">
+						<label value="${c:l('login.copyright')}"
+							style="color: white; font-size: 12px;">
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<attribute name="onCreate">
+	Clients.evalJavaScript("initTimer('" + divCenter.getUuid() + "','"
+			+ image_btn1.getUuid() + "," + image_btn2.getUuid() + "')");
+</attribute>
+	</window>
+	<script type="text/javascript"
+		src="../apps/images/login/login.js">
+	</script>
+</zk>

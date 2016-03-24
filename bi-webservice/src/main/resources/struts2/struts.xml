@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="common" extends="struts-default">
+		<interceptors>
+			<interceptor name="i18n" class="com.thinkjf.web.struts2.interceptor.I18nExtensionInterceptor"/>
+			<interceptor-stack name="defaultStack">
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox">
+                	<param name="uncheckedValue"/>
+                </interceptor-ref>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="defaultStack"/>
+		<!--
+	    <global-results>
+			<result name="serviceException" type="dispatcher">/WEB-INF/jsp/serviceError.jsp</result>
+			<result name="runtimeException" type="dispatcher">/WEB-INF/jsp/error.jsp</result>
+			<result name="exception" type="dispatcher">/WEB-INF/jsp/error.jsp</result>
+			<result name="commonSuccess" type="redirect">/WEB-INF/jsp/success.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="serviceException" exception="cn.sh.cares.framework.service.ServiceException"></exception-mapping>
+			<exception-mapping result="runtimeException" exception="java.lang.RuntimeException"></exception-mapping>
+			<exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+	-->
+
+<!--		 <action name="login_*" class="fcmsLoginAction" method="{1}">-->
+<!--			<result>/fcms/common/login.jsp</result>-->
+<!--			<result name="index" type="redirect">/fcms/common/fcms_index.zul</result>-->
+<!--			<result name="login" type="redirect">/login.do</result>-->
+<!--		</action>-->
+		
+	</package>
+	
+	<include file="apps_direct.xml"/>
+</struts>

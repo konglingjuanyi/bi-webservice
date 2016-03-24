@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+				default-autowire="byName">
+
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+
+    <!-- Activates scanning of @Repository and @Service -->
+	<context:component-scan base-package="com.thinkjf"/> 
+
+    <!-- Add new DAOs here -->
+
+    <!-- Add new Managers here -->
+
+   <!--  Ehcache -->
+ 	<bean id="defaultCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">    
+	    <property name="configLocation">    
+	      <value>classpath:ehcache.xml</value>    
+	    </property>    
+  	</bean>    
+  	
+    <!--  Add transaction -->  
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>
+
+	<bean id="sessionFactory" class="com.thinkjf.dao.orm.hibernate.extension.ExtensionAnnotationSessionFactoryBean">
+		<property name="dataSource" ref="smsDataSource"/>
+
+		<property name="annotatedClassesLocations">
+			<list>
+				<value>classpath*:com/thinkjf/*/entity/**/*.class</value>
+				
+			</list>
+		</property>
+		<property name="hbmLocations">
+			<list>
+				<value>classpath*:com/thinkjf/*/entity/**/*.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.CaresOracleDialect</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.jdbc.fetch_size">20</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+			</props>
+		</property>
+	</bean>	
+		
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	  <property name="driverClass" value="${com.cares.cjframe.c3p0.driverClass}" /> 
+	  <property name="jdbcUrl" value="${com.cares.cjframe.c3p0.jdbcUrl}" /> 
+	  <property name="user" value="${com.cares.cjframe.c3p0.user}" /> 
+	  <property name="password" value="${com.cares.cjframe.c3p0.password}" /> 
+	  <property name="minPoolSize" value="${com.cares.cjframe.c3p0.minPoolSize}" /> 
+	  <property name="maxPoolSize" value="${com.cares.cjframe.c3p0.maxPoolSize}" /> 
+	  <property name="initialPoolSize" value="${com.cares.cjframe.c3p0.initialPoolSize}" /> 
+	  <property name="maxIdleTime" value="${com.cares.cjframe.c3p0.maxIdleTime}" /> 
+	  <property name="acquireIncrement" value="${com.cares.cjframe.c3p0.acquireIncrement}" /> 
+	  <property name="maxStatements" value="${com.cares.cjframe.c3p0.maxStatements}" /> 
+	  <property name="maxStatementsPerConnection" value="${com.cares.cjframe.c3p0.maxStatementsPerConnection}" /> 
+	  <property name="idleConnectionTestPeriod" value="${com.cares.cjframe.c3p0.idleConnectionTestPeriod}" /> 
+	  <property name="acquireRetryAttempts" value="${com.cares.cjframe.c3p0.acquireRetryAttempts}" /> 
+	  <property name="breakAfterAcquireFailure" value="${com.cares.cjframe.c3p0.breakAfterAcquireFailure}" /> 
+	  <property name="testConnectionOnCheckout" value="${com.cares.cjframe.c3p0.testConnectionOnCheckout}" /> 
+  	</bean>
+
+
+	<bean id="oracleHibernateEntityManager" class="com.thinkjf.dao.orm.hibernate.DefaultHibernateOrmExecution">
+		<constructor-arg>
+			<ref local="dataSource"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="sessionFactory"/>
+		</constructor-arg>
+		<property name="mappingLocations">
+			<list>
+				<value>classpath*:com/thinkjf/*/entity/**/*.xml</value>
+				
+			</list>
+		</property>
+		<!--<property name="configLocation"><value>classpath:SqlMapConfig.xml</value></property> -->
+	</bean>
+ 
+	
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.thinkjf.*.service..*ServiceImpl.*(..))" advice-ref="txAdvice"/>
+		<aop:advisor pointcut="execution(* com.thinkjf.ws.service..*ServiceImpl.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="do*" read-only="false" rollback-for="com.thinkjf.service.ServiceException,Exception"/>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="search*" read-only="true"/>
+			<tx:method name="find*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+    
+    <context:property-placeholder location="jdbc.properties"/> 
+</beans>

@@ -1,0 +1,27 @@
+<?page id="errorpage" title=" error" cacheable="false"  language="xul/html" zscriptLanguage="Java" contentType="text/html;charset=UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?link  rel="stylesheet" type="text/css" href="/css/IE.css"?>
+
+<!--[if IE 6]>
+
+<![endif]--> 
+
+<zk>
+
+	<window apply="${ errorPageController }" width="400px"
+		border="normal" mode="modal"
+		action="">
+
+		<separator spacing="10px" />
+		<hbox>
+		<image src="/cjframe/images/warning-btn.gif" />
+		<label id="errorMessageLab"></label>
+		</hbox>
+		<separator spacing="20px" />
+		<toolbar mold="panel" align="center">
+			<button id="continueBtn" label="确定" height="25px" width="80px" onClick="spaceOwner.detach()" />
+			<button id="reloadBtn" label="刷新" height="25px" width="80px" onClick="Executions.sendRedirect(null)" />
+		</toolbar>
+ 
+	</window>
+</zk>

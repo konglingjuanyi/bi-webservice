@@ -1,0 +1,223 @@
+.lblStatistics {
+	color: green;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.blue {
+	background-color: blue;
+}
+
+.purple {
+	background-color: purple;
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.red {
+	background-color: red;
+}
+
+.green {
+	background-color: green;
+}
+
+.txtGreen{
+	color: green;
+}
+
+.txtRed{
+	color: red;
+}
+
+.order {
+	color: red;
+}
+
+.contentLocation {
+	color: red;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.grdNewQuote .z-cell span {
+	white-space: normal;
+}
+
+.changeQuoteMain {
+	text-decoration: none;
+	font-size: 15px;
+	font-weight: bold;
+	font-family: '寰蒋闆呴粦';
+}
+
+.changeQuoteMain:hover {
+	font-size: 16px;
+}
+
+.grdNewQuote div.z-grid-header,grdNewQuote div.z-grid-footer {
+	overflow: visible;
+}
+
+.gpcollyout .z-columnlayout,.gpcollyout
+		.z-columnchildren,.gpcollyout .z-columnchildren-cnt,.gpcollyout
+		.z-columnchildren-body,.gpcollyout .z-columnlayout-inner {
+	overflow: visible;
+}
+
+.title {
+	color: blue;
+}
+
+.redA {
+	color: red;
+}
+
+.greyA {
+	color: grey;
+}
+
+.errorInfoHeight {
+	height: 15px;
+}
+
+.tdCenter {
+	text-align: center;
+}
+/* 闁告牕鎼悡娆忣嚕閿熺瓔鐎�*/
+.pagingBorder {
+	border-left: 1px solid #8FB9D0;
+	border-right: 1px solid #8FB9D0;
+}
+
+.areaLabelWidth {
+	width: 94px;
+}
+
+.ftbAlign {
+	text-align: right;
+}
+
+.tbBorder {
+	border: 1px solid #dfdede;
+}
+
+.buttonPadding {
+	padding-top: 10px;
+}
+
+.treecell {
+	height: 30px;
+}
+
+.treeSelWidth {
+	width: 185px;
+}
+/* 闁告牕鎼悡锟界紓浣规尰濞硷拷/
+
+/* 闁归潧鐏濈�姗�礌閿熻棄顕ｉ敓绛嬬�*/
+.operationBtn {
+	height: 26px;
+}
+
+.tbcdWidth {
+	width: 150px;
+}
+
+.inputBorder {
+	border: 1px solid #dfdede;
+}
+
+.tbcdHeight {
+	height: 37px;
+}
+
+.treecell {
+	height: 30px;
+}
+
+.label {
+	margin-left: 5px;
+}
+
+.colOne {
+	width: 80px;
+}
+
+.colSecond {
+	width: 80px;
+}
+
+.three {
+	width: 70px;
+}
+
+.four {
+	width: 70px;
+}
+
+.listItemHeight {
+	height: 32px;
+}
+/* 闁归潧鐏濈�姗�礌閾忓湱娉㈤柡澶涙嫹*/
+/* 闁告稒锚娴兼劕顕ｉ敓绛嬬� */
+.operationBtn {
+	height: 26px;
+}
+
+.lstbHeight {
+	height: 20px;
+}
+
+.colOneWidth {
+	width: 70px;
+}
+
+.colSecondWidth {
+	width: 70px;
+}
+
+.colThreeWidth {
+	width: 110px;
+}
+
+.colFourWidth {
+	width: 90px;
+}
+
+.longInput {
+	width: 99.5%;
+}
+/* 闁告稒锚娴兼劗绱掗幘瀛樺皢 */
+/* 濞戞搩鍙�ù鍡欐嫻閻熸壆纾诲┑顕嗘嫹*/
+.textAlignRight {
+	text-align: right;
+}
+
+.weightCell {
+	height: 25px;
+	width: 100%;
+}
+
+.rowborder {
+	border: 1px solid #8FB9D0;
+}
+
+.bankColOne {
+	width: 80px;
+}
+
+.billColOne {
+	width: 130px;
+}
+
+.billColTwo {
+	width: 70px;
+}
+
+.billColThree {
+	width: 80px;
+}
+/* 閺夆晜鍔曞畷鐔烘喆閸曨偄鐏熺紒鐙呯磿閹﹦绱掗幘瀛樺皢  */

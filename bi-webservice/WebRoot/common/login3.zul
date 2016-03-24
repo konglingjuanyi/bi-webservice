@@ -1,0 +1,84 @@
+<?page id="pgLogin" title="丞风NE1快递业务管理系统－系统登录"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/apps/images/favicon.ico"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="loginController"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	
+	<style>
+		body {	margin: 0px;padding: 0px; 
+				background-color:#1854AC;
+			 }
+		.tabe1{
+			background-image: url('../apps/images/home/login_01.jpg');
+			background-repeat: no-repeat;
+			height:163px;
+			width:1024px;
+		}
+		.tabe2{
+			background-image: url('../apps/images/home/login_bg.jpg');
+			background-repeat: no-repeat;
+			height:328px;
+			width:1024px;
+		}
+		.tabe3{
+			background-image: url('../apps/images/home/login_03.jpg');
+			background-repeat: no-repeat;
+			height:129px;
+			width:1024px;
+		}
+		.login_m2{ height:22px; font:normal 14px "宋体"; color:#666666; padding-left:0px;font-weight: bold;}
+	</style>
+	<style>
+		<![CDATA[html{ overflow-x:hidden;overflow-y:hidden;height:100%;margin:0;padding:0; } ]]>
+	</style>
+
+	<window id="loginController" border="none" width="100%" height="100%" apply="${loginController}" onOK="controller.login()" >
+		<div align="center">
+			<div class="tabe1"></div>
+			<div class="tabe2" align="left">
+				<space height="38px"/>
+				<div>
+					<space width="540px" />
+					<label value="用 户 名：" class="login_m2" height="28px"/>
+					<textbox id="txtUserName" name="j_username"
+						value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"
+						width="160px" height="18px" focus="true" />
+				</div>
+				<space height="10px" />
+				<div>
+					<space width="540px" />
+					<label value="密 " class="login_m2" height="28px"/><space width="15px" /><label value=" 码：" class="login_m2" height="28px"/>
+					<textbox id="txtUserPwd" name="j_password" value="" width="160px" height="18px" type="password" />
+				</div>
+				<space height="10px" />
+				<!-- 
+				<div>
+					<space width="540px" />
+					<label value="验 证 码：" class="login_m2" height="28px"/>
+					<textbox id="validateCode" value="" width="70px" height="18px"/>
+					<space width="5px" />
+					<toolbarbutton image="/apps/images/home/yanzhengma.jpg"/>
+				</div>
+				 -->
+				<space height="20px" />
+				<div>
+					<space width="540px" />
+					<label id="lblErrorInfo" style="color:red" height="10px" />
+				</div>
+				<div>
+					<space width="580px"/><toolbarbutton image="/apps/images/home/login_btn.jpg"  onClick="controller.login()" />
+					<space width="20px"/><toolbarbutton image="/apps/images/home/reset_btn.jpg" onClick="controller.reset()"/>
+				</div>
+				<space height="50px" />
+				<div>
+					<div sclass="login_m2"><space width="560px" /><label value="* 为了您的密码安全最多允许登录尝试次数为5次！" style="color:#999999;"/></div>
+					<div sclass="login_m2"><space width="560px" /><label value="* 如果帐号被锁定，请与系统管理员联系。" style="color:#999999;"/></div>
+				</div>
+			</div>
+			<div class="tabe3"></div>
+		</div>
+	</window>
+</zk>

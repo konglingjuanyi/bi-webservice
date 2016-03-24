@@ -1,0 +1,19 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?taglib uri="/WEB-INF/tld/thinkjf-tags-zk.tld" prefix="cares" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?taglib uri="http://www.zkoss.org/dsp/zk/core" prefix="z" ?>
+
+<?link  rel="stylesheet" type="text/css" href="/apps/css/styles.css"?>
+<?link  rel="stylesheet" type="text/css" href="/apps/css/gridview.css"?>
+
+<?component name="button" extends="button" sclass="commonBtn" ?>
+
+<zk>
+
+	<zscript> 
+<![CDATA[
+	String contextPath = requestScope.contextPath;
+]]>
+	</zscript>
+
+</zk>

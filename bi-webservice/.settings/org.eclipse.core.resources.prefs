@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//WebRoot/WEB-INF/i3-label.properties=UTF-8
+encoding//WebRoot/WEB-INF/i3-label_zh_CN.properties=UTF-8
+encoding//src/main/java=UTF-8
+encoding//src/main/resources/i18n/message-basedata_zh_CN.properties=UTF-8
+encoding//src/main/resources/i18n/message-enumdesc_zh_CN.properties=UTF-8
+encoding//src/main/resources/i18n/message-framework_zh_CN.properties=UTF-8
+encoding//src/main/resources/ibatis=UTF-8
+encoding//src/main/resources/import=UTF-8
+encoding//src/main/resources/properties=UTF-8
+encoding//src/main/resources/properties/GlobalConfig.properties=UTF-8
+encoding//src/main/resources/properties/jdbc.properties=UTF-8
+encoding//src/main/resources/spring=UTF-8
+encoding//src/main/resources/struts2=UTF-8
+encoding//src/test/java=utf8
+encoding//src/test/resources=UTF-8
+encoding/<project>=UTF-8

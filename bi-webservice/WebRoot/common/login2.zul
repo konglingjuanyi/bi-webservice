@@ -1,0 +1,135 @@
+<?script type="text/javascript" src="../apps/images/login/login.js"?>
+<zk>
+	<style>
+		.body_bg{
+			background-color: #eff2f3;
+		}
+		.bg_center { background-position: center; background-repeat:
+		no-repeat; }
+
+		.win { background-image: url("../apps/images/login/bg.png"); }
+
+		.top_bg_B { background-image:
+		url("../apps/images/login/top_B2.png") }
+
+		.top_bg_A { background-image:
+		url("../apps/images/login/top_A.png"); padding-top: 4px; }
+
+		.center_bg { padding-top: 50px; }
+
+		.login_bg { background-image:
+		url("../apps/images/login/login_bg.png");}
+
+		.login_btn { background-image:
+		url("../apps/images/login/login_btn_out.png"); border: 0px;
+		cursor: pointer; }
+
+		.top_href { text-decoration: none; font-weight: blod;
+		font-family: '微软雅黑'; color: white; font-size: 14px; }
+
+		.top_href:hover { font-size: 15px; }
+
+		.top_B_href { text-decoration: none; color: #5e7482; font-size:
+		15px; font-weight: bold; font-family: '微软雅黑'; }
+
+		.top_B_href:hover { font-size: 16px; color: #0d689d; }
+
+		.image_btn{ cursor:
+		pointer;text-align:center;padding-top:3px;color:white; }
+	</style>
+	<window xmlns:w="client"
+		style="min-width:1000px;min-height:605px;" sclass="body_bg" width="100%" height="100%">
+		<div width="100%" height="762px" sclass="win bg_center">
+			<div sclass="top_bg_A bg_center" height="26px" width="100%"
+				align="center">
+			</div>
+			<div height="78px" width="100%" sclass="top_bg_B bg_center"
+				align="center">
+				<div align="right" width="1000px"
+					style="padding-top:20px;">
+					<tablelayout columns="4">
+						<tablechildren width="75px"
+							style="text-align:right;">
+							<a href="" sclass="top_B_href">首页</a>
+						</tablechildren>
+						<tablechildren width="120px"
+							style="text-align:right;">
+							<a href="" sclass="top_B_href">会员服务</a>
+						</tablechildren>
+						<tablechildren width="120px"
+							style="text-align:right;">
+							<a href="" sclass="top_B_href">寄递服务</a>
+						</tablechildren>
+						<tablechildren width="100px"
+							style="text-align:right;">
+							<a href="" sclass="top_B_href">积分计划</a>
+						</tablechildren>
+					</tablelayout>
+				</div>
+			</div>
+			<div height="350px" width="100%" id="divCenter"
+				sclass="center_bg bg_center" align="center">
+				<div width="1000px" height="295px" align="right">
+					<div width="286px" height="260px" sclass="login_bg"
+						align="left">
+						<vbox style="margin-left:34px;">
+							<hbox height="40px"
+								style="margin-top:71px;">
+								<image width="40px" height="40px"
+									src="../apps/images/login/user_out.png"
+									w:onMouseOver="changeImage(this.uuid,'user_over.png')"
+									w:onMouseOut="changeImage(this.uuid,'user_out.png')">
+								</image>
+								<textbox width="170px" height="35px"
+									style="font-size:20px;border:0px;">
+								</textbox>
+							</hbox>
+							<hbox height="40px"
+								style="margin-top:5px;">
+								<image width="40px" height="39px"
+									src="../apps/images/login/pass_out.png"
+									w:onMouseOver="changeImage(this.uuid,'pass_over.png')"
+									w:onMouseOut="changeImage(this.uuid,'pass_out.png')">
+								</image>
+								<textbox width="170px" height="35px"
+									type="password" style="font-size:20px;border:0px;">
+								</textbox>
+							</hbox>
+							<div height="11px" width="100%"
+								align="right">
+							</div>
+							<div height="40px" width="175px">
+								<button sclass="login_btn" width="219px"
+									w:onMouseOver="changeBtnImage(this.uuid,'login_btn_over.png')"
+									w:onMouseOut="changeBtnImage(this.uuid,'login_btn_out.png')"
+									height="40px">
+								</button>
+							</div>
+						</vbox>
+					</div>
+				</div>
+				<div style="margin-top:25px;" width="100%"
+					align="center">
+					<hbox style="margin-left:20px;">
+						<div width="20px" height="17px"
+							sclass="image_btn" id="image_btn1">
+							1
+						</div>
+						<space width="5px"></space>
+						<div width="20px" height="17px"
+							sclass="image_btn" id="image_btn2">
+							2
+						</div>
+					</hbox>
+				</div>
+			</div>
+		</div>
+		<attribute name="onCreate">
+	Clients.evalJavaScript("initTimer('" + divCenter.getUuid() + "','"
+			+ image_btn1.getUuid() + "," + image_btn2.getUuid() + "')");
+</attribute>
+	</window>
+	<script type="text/javascript"
+		src="../apps/images/login/login.js">
+	</script>
+</zk>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+	default-autowire="byName">
+
+	<!-- RocketMQ生产者 -->
+	<bean id="smsSendClient" class="com.chengfeng.sms.web.client.SMSSendClient">
+	</bean>
+
+	<!-- RocketMQ生产者Task -->
+	<bean id="smsSendClientTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="smsSendClient" /><!--关联的bean -->
+		<property name="targetMethod" value="sendMsg" /><!--关联的bean的方法 -->
+		<!--false表示等上一个任务执行完后再开启新的任务 -->
+		<property name="concurrent" value="false" /><!--配置为false不允许任务并发执行 -->
+	</bean>
+
+	<!--每个任务独有的触发器:每隔3秒执行一次 -->
+	<!-- <bean id="simpleTrigger"
+		class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		具体执行的任务
+		<property name="jobDetail" ref="mqProducerTask" />
+		每隔3秒执行一次
+		<property name="repeatInterval" value="30000" />
+		重复执行次数
+		<property name="repeatCount" value="1" />
+	</bean> -->
+
+
+	<!--每个任务独有的触发器:每隔30秒执行一次 -->
+	<bean id="smsSendClientTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> 
+		<property name="jobDetail" ref="smsSendClientTask" /> 
+		<property name="cronExpression" value="0/30 * * * * ?" /> 
+	</bean>
+
+	<!-- 定时器bean -->
+	<bean id="scheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- <ref bean="mqProducerTrigger" /> -->
+				<ref bean="smsSendClientTrigger" />
+			</list>
+		</property>
+	</bean>
+
+
+
+</beans>

@@ -1,0 +1,11 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="winOpenPM" border="none" position="center,center"
+		closable="true" width="500px" height="35px">
+		<progressmeter id="progress" value="0" width="99.5%" />
+		<div align="center">
+			<timer id="timerUsed" delay="1000" repeats="true" />
+			<label id="labTimeUserd" />
+		</div>
+	</window>
+</zk>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd
+  http://www.bea.com/ns/weblogic/90
+  http://www.bea.com/ns/weblogic/90/weblogic-web-app.xsd">
+
+	<charset-params>
+		<input-charset>
+			<resource-path>/*</resource-path>
+			<java-charset-name>UTF-8</java-charset-name>
+		</input-charset>
+	</charset-params>
+	<context-root>/</context-root>
+	<prefer-application-packages>
+		<package-name>org.springframework.*</package-name>
+	</prefer-application-packages>
+	
+	<container-descriptor>
+		<prefer-web-inf-classes>true</prefer-web-inf-classes>
+	</container-descriptor>
+	<jsp-descriptor>
+		<precompile>true</precompile>
+		<precompile-continue>true</precompile-continue>
+	</jsp-descriptor>
+	
+	
+</weblogic-web-app>
+
+

@@ -1,0 +1,11 @@
+<zk>
+<window title="Error ${requestScope['javax.servlet.error.status_code']}"
+	width="400px" border="normal" mode="modal" action="onshow:anima.appear(#{self},-1);onhide:anima.fade(#{self},-1);" >
+   <vbox>
+   		应用程序发生错误, Cause: ${requestScope['javax.servlet.error.message']}
+      <hbox style="margin-left:auto; margin-right:auto">
+         <button label="关闭" onClick="spaceOwner.detach()"/>
+      </hbox>
+   </vbox>
+</window>
+</zk>

@@ -1,0 +1,139 @@
+<zk>
+	<style>
+		.bg_center { background-position: center; background-repeat:
+		no-repeat; }
+
+		.win { background-image: url("../apps/images/login/bg.png"); }
+
+		.top_bg_B { background-image:
+		url("../apps/images/login/top_B2.png") }
+
+		.top_bg_A { background-image:
+		url("../apps/images/login/top_A.png"); padding-top: 4px; }
+
+		.center_bg { background-image:
+		url("../apps/images/login/center_bg.png"); padding-top: 50px; }
+
+		.login_bg { background-image:
+		url("../apps/images/login/login_bg.png"); margin-left: 860px; }
+
+		.login_btn { background-image:
+		url("../apps/images/login/login_btn_out.png"); border: 0px;
+		cursor: pointer; }
+
+		.top_href { text-decoration: none; font-weight: blod;
+		font-family: '微软雅黑'; color: white; font-size: 14px; }
+
+		.top_href:hover { font-size: 15px; }
+
+		.top_B_href { text-decoration: none; color: #5e7482; font-size:
+		20px; font-weight: bold; font-family: '微软雅黑'; }
+
+		.top_B_href:hover { font-size: 21px; color: #0d689d; }
+	</style>
+	<script type="text/javascript">
+		function changeImage(id,imageName){
+		$("#"+id).attr("src","../apps/images/login/"+imageName); }
+		function changeBtnImage(id,imageName){
+		$("#"+id).css("background-image","url('../apps/images/login/"+imageName+"')");
+		}
+	</script>
+	<window xmlns:w="client"
+		style="min-width:1180px;min-height:762px;">
+		<div width="100%" height="762px" sclass="win bg_center">
+			<div sclass="top_bg_A bg_center" height="26px" width="100%"
+				align="center">
+				<div width="1180px" align="right">
+					<hbox>
+						<tablelayout columns="3">
+							<tablechildren width="70px">
+								<a href="" sclass="top_href">首页</a>
+							</tablechildren>
+							<tablechildren width="70px">
+								<a href="" sclass="top_href">帮助</a>
+							</tablechildren>
+							<tablechildren width="70px">
+								<a href="" sclass="top_href">建议</a>
+							</tablechildren>
+						</tablelayout>
+						<space width="105px"></space>
+					</hbox>
+				</div>
+			</div>
+			<div height="78px" width="100%" sclass="top_bg_B bg_center"
+				align="center">
+				<div align="right" width="1180px"
+					style="padding-top:20px;">
+					<tablelayout columns="4"
+						style="margin-right:70px;">
+						<tablechildren width="75px">
+							<a href="" sclass="top_B_href">首页</a>
+						</tablechildren>
+						<tablechildren width="120px">
+							<a href="" sclass="top_B_href">会员服务</a>
+						</tablechildren>
+						<tablechildren width="120px">
+							<a href="www.baidu.com"
+								sclass="top_B_href">
+								寄递服务
+							</a>
+						</tablechildren>
+						<tablechildren width="100px">
+							<a href="www.tudou.com"
+								sclass="top_B_href">
+								积分计划
+							</a>
+						</tablechildren>
+					</tablelayout>
+				</div>
+			</div>
+			<div height="350px" width="100%"
+				sclass="center_bg bg_center" align="center">
+				<div width="1180px" height="295px"
+					style="text-align:right;">
+					<div width="286px" height="295px"
+						sclass="login_bg">
+						<vbox style="margin-left:34px;">
+							<hbox height="40px"
+								style="margin-top:71px;">
+								<image width="40px" height="40px"
+									src="../apps/images/login/user_out.png"
+									w:onMouseOver="changeImage(this.uuid,'user_over.png')"
+									w:onMouseOut="changeImage(this.uuid,'user_out.png')">
+								</image>
+								<textbox width="170px" height="35px"
+									style="font-size:20px;border:0px;">
+								</textbox>
+							</hbox>
+							<hbox height="40px"
+								style="margin-top:5px;">
+								<image width="40px" height="39px"
+									src="../apps/images/login/pass_out.png"
+									w:onMouseOver="changeImage(this.uuid,'pass_over.png')"
+									w:onMouseOut="changeImage(this.uuid,'pass_out.png')">
+								</image>
+								<textbox width="170px" height="35px"
+									type="password" style="font-size:20px;border:0px;">
+								</textbox>
+							</hbox>
+							<div height="31px" width="100%"
+								align="right">
+								<a href="" sclass="top_href">忘记登录密码</a>
+							</div>
+							<div height="40px" width="175px">
+								<button sclass="login_btn" width="219px"
+									w:onMouseOver="changeBtnImage(this.uuid,'login_btn_over.png')"
+									w:onMouseOut="changeBtnImage(this.uuid,'login_btn_out.png')"
+									height="40px">
+								</button>
+							</div>
+							<!-- <div width="100%" align="right">
+								<a href="" sclass="top_href">免费注册</a>
+								</div> -->
+						</vbox>
+					</div>
+				</div>
+			</div>
+		</div>
+	</window>
+</zk>

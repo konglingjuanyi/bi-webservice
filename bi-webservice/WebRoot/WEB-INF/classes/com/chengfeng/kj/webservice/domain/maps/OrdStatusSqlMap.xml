@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="OrdStatusVO">
+    <typeAlias alias="OrdStatus" type="com.chengfeng.kj.webservice.domain.OrdStatusVO" />
+    <resultMap id="OrdStatusResult" class="OrdStatus">
+        <result property="orderId" column="ORDER_ID"/>
+        <result property="orderStatus" column="ORDER_STATUS"/>
+        <result property="siteId" column="SITE_ID"/>
+        <result property="orderCancelId" column="ORDER_CANCEL_ID"/>
+        <result property="createdBy" column="CREATED_BY"/>
+        <result property="createdTime" column="CREATED_TIME"/>
+    </resultMap>
+    
+    <sql id="SiteSql">
+       <![CDATA[
+         ORDER_ID,
+         ORDER_STATUS,
+         SITE_ID,
+         ORDER_CANCEL_ID,
+         CREATED_BY,
+         CREATED_TIME
+	    ]]>
+    </sql>
+    <procedure id="queryOrdStatus" resultMap="OrdStatusResult">
+        <![CDATA[
+            { call () }
+        ]]>
+    </procedure>
+    
+    <select id="queryList" resultMap="OrdStatusResult">
+        SELECT <include refid="SiteSql" />
+        FROM HS_ORD_STATUS 
+        WHERE 
+             created_time &lt; TO_DATE(TO_CHAR(SYSDATE,'yyyy-mm-dd,hh24:mi'),'yyyy-mm-dd,hh24:mi')
+         AND created_time >= TO_DATE(TO_CHAR((SYSDATE - 1/288),'yyyy-mm-dd,hh24:mi'),'yyyy-mm-dd,hh24:mi')
+    </select>
+</sqlMap>

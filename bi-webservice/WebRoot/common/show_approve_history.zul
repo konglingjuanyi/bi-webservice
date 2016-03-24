@@ -1,0 +1,49 @@
+<?page cacheable="false"  language="xul/html" zscriptLanguage="Java" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" arg0="./winShowApproveHistory"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?link  rel="stylesheet" type="text/css" href="/cjframe/css/styles.css"?>
+<zk>
+<!--
+    功能描述：提款审核记录
+ * @author  meijie@cares.sh.cn  梅杰       
+ * @version 1.0                          
+ * HISTORY                                            
+ * 2012-6-28 16:08:00 创建文件
+-->
+	<window id="winShowApproveHistory"  width="740px"
+		height="285px" border="normal" position="center"
+		apply="${showApproveHistoryController}" closable="true">
+	<borderlayout height="100%" style="overflow-y:auto;">
+	<north border="0">
+		<div>
+			<div>
+				<div align="center">
+					<listbox   model="@{controller.apprCommentList}"   fixedLayout="true" multiple="true">
+				    <listhead height="20px" >
+								<listheader label="流程环节" align="center" width="120px" />
+							    <listheader label="经办人" align="center" width="80px"/>
+							    <listheader label="操作时间" align="center" width="130px"/>
+							    <listheader label="操作" align="center" width="80px" />
+							    <listheader label="意见" align="center" />
+							    </listhead>
+							<listitem self="@{each=apprComment}" value="@{apprComment}" height="22px">
+							<listcell><label value="@{apprComment.activityName}" maxlength="8" tooltiptext="@{apprComment.activityName}" /></listcell>
+							<listcell><label value="@{apprComment.apprOperatorName}" /></listcell>
+							<listcell><label value="@{apprComment.apprDate,converter='com.cares.cjframe.web.zk.common.DateTimeToStrConverter'}" /></listcell>
+							<listcell ><label value="@{apprComment.isAggree,converter='com.cares.fms.util.IsAggreeConverter'}"/></listcell>
+							<listcell style="text-align:left;"><label value="@{apprComment.apprComment}" /></listcell>
+						</listitem>
+						</listbox>
+				</div>
+			</div>
+			<div align="center">
+				<button label="关闭" mold="os" width="80px" height="26px" 
+						onClick="winShowApproveHistory.setVisible(false);winShowApproveHistory.detach();"/>
+			</div>
+		</div>
+	</north>
+	<center border="0"></center>
+	<south border="0"></south>
+	</borderlayout>
+	</window>
+</zk>

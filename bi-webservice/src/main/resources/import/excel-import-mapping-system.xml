@@ -1,0 +1,70 @@
+<!--excel-import-mapping文件主要完成excel列和对应Dto的映射
+		excel节点
+			id：必须为dto的包名加类名，也就是dto.getClass().getName()的值
+			start-row: 解析是从excel的第几行开始解析
+			start-column: 解析是从excel的第几列开始解析
+			start-sheet: 解析是从excel的第几个sheet开始解析
+			parse-sheet-count：解析sheet的个数
+			row-validators:针对行的validators
+			form-validators：针对excel中所有数据的validators
+		column节点
+			field: 对应dto的属性名
+			label：此属性或者此列的描述（这个在解析出现错误时显示在错误文件中）
+			validators：对此属性进行验证的validator，可以自己实现，也可以直接使用import-export-common-beans.xml里定义的validator
+			max-value：属性最大值
+			include-max-value：布尔值，是否包括最大值
+			min-value：属性最小值
+			include-min-value：布尔值，是否包括最小值
+			truncate-decimal：布尔值，是否删除小数部分
+			disabled：布尔值，此属性无效
+			force-to-string：是否强制转换成String
+ -->
+<excel-import-mapping xmlns="http://www.cares.sh.cn/excel">
+	<excel id="com.cares.cjframe.excel.form.ProjectExcelForm" 
+		start-row="3" 
+		start-column="1" 
+		start-sheet="1"
+		parse-sheet-count="1"
+		form-validators="projectExcelFormValidator">
+		<column field="projectNo" label="项目编号" validators="notEmpty" accept-null="true"/>
+		<column field="useDeptName" label="使用单位"  accept-null="true"/>
+		<column field="projectName" label="项目名称"  validators="notEmpty"/>	
+		<column field="specification" label="规格"  accept-null="true"/>	
+		<column field="projectTypeName" label="项目类型" validators="notEmpty,projectTypeValidator" accept-null="true"/>
+		<column field="budgetType" label="预算类型"  accept-null="true"/>
+		<column field="quantity" label="数量"  accept-null="true"/>
+		<column field="budgetAmount" label="预算金额" validators="decimal" accept-null="true"/>
+		
+		<!--
+		<column field="projectCreateDate" label="项目创建日期"  validators="date" accept-null="true"/>
+		-->
+		<column field="projectStartDate" label="项目开始日期"  validators="date" accept-null="true"/>
+		<column field="projectEndDate" label="项目结束日期"  validators="date" accept-null="true"/>
+		<column field="fundsSource" label="资金来源"  accept-null="true"/>
+		<column field="budgetName" label="呈批件名称"  accept-null="true"/>
+		<column field="remark" label="备注"  accept-null="true"/>		
+		<!--
+		<column field="needExchange" label="使用外汇"  accept-null="true"/>
+		-->
+		
+	</excel>
+
+	<excel id="com.cares.fms.excel.form.RateAboardExcelForm" 
+		start-row="3" 
+		start-column="1" 
+		start-sheet="1"
+		parse-sheet-count="1"
+		form-validators="rateAboardExcelFormValidator">
+		<column field="seq" label="序号" validators="decimal" accept-null="false"/> 
+		<column field="oneMonthDate" label="一个月利率日期" validators="date" accept-null="true"/>
+		<column field="oneMonthRate" label="一个月利率"  validators="decimal" accept-null="true"/>
+		<column field="threeMonthDate" label="三个月利率日期" validators="date" accept-null="true"/>
+		<column field="threeMonthRate" label="三个月利率" validators="decimal"  accept-null="true"/>
+		<column field="sixMonthDate" label="六个月利率日期" validators="date" accept-null="true"/>
+		<column field="sixMonthRate" label="六个月利率" validators="decimal"  accept-null="true"/>		
+		<column field="oneYearDate" label="一年利率日期" validators="date" accept-null="true"/>
+		<column field="oneYearRate" label="一年利率" validators="decimal"  accept-null="true"/>	 
+	</excel>
+	
+	
+</excel-import-mapping>

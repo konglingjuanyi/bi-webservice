@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/cjframe/images/f.ico"?>
+<?page title="连接超时" ?>
+
+<window width="80%" title="连接超时" border="normal" position="center">
+	<vbox>
+	您请求的页面或组件已不再可用。这通常是由于超时，打开了太多的Web页面或重启服务器造成的。
+	<div style="margin-top: 10px"><toolbarbutton href="/" label="重新登录" target="_top"/>
+	</div>
+	</vbox>
+</window>

@@ -1,0 +1,4 @@
+<link href="<c:out value="${pageContext.request.contextPath}" />/css/exception.css" rel="stylesheet" type="text/css">
+<s:if test="hasErrors()">  
+<div class="error"><s:actionerror/></div>
+</s:if>

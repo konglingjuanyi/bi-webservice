@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SiteVO">
+	<typeAlias alias="Site" type="com.chengfeng.kj.webservice.domain.SiteVO" />
+	<resultMap id="SiteResult" class="Site">
+		<result property="siteCode" column="SITE_CODE" />
+		<result property="siteName" column="SITE_NAME"/>
+		<result property="superiorSite" column="SUPERIOR_SITE"/>
+		<result property="superiorFinanceCenter" column="SUPERIOR_FINANCE_CENTER" />
+		<result property="type" column="TYPE" />
+		<result property="blNotInput" column="BL_NOT_INPUT" />
+		<result property="province" column="PROVINCE" />
+		<result property="city" column="CITY" />
+		<result property="rangeName" column="RANGE_NAME" />
+		<result property="areaName" column="AREA_NAME" />
+		<result property="centersitesign" column="CENTERSITESIGN" />
+		<result property="superCentersitesign" column="SUPER_CENTERSITESIGN" />
+		<result property="firstCenterSiteCode" column="FIRST_CENTER_SITE_CODE" />
+	</resultMap>
+	<!--公共抽取的列 -->
+    <sql id="SiteSql">
+       <![CDATA[
+         SITE_CODE,
+         SITE_NAME,
+         SUPERIOR_FINANCE_CENTER,
+         TYPE,
+         BL_NOT_INPUT,
+         PROVINCE,
+         CITY,
+         RANGE_NAME,
+         AREA_NAME
+	    ]]>
+    </sql>
+	
+	
+	<!-- 查询所有 -->
+	<select id="querySite" parameterClass="java.util.Map" resultMap="SiteResult">
+	      SELECT 
+	      <include refid="SiteSql" />
+	      ,(SELECT SITE_CODE FROM TAB_SITE WHERE SITE_NAME = T.SUPERIOR_SITE) SUPERIOR_SITE
+	      ,NVL(CENTERSITESIGN , '') CENTERSITESIGN,(SELECT CENTERSITESIGN FROM TAB_SITE WHERE SITE_NAME = T.SUPERIOR_SITE) SUPER_CENTERSITESIGN
+	      ,(SELECT SITE_CODE FROM TAB_SITE  WHERE SITE_NAME = ((SELECT SUPERIOR_SITE FROM TAB_SITE WHERE SITE_NAME = T.SUPERIOR_SITE))) FIRST_CENTER_SITE_CODE
+	  <![CDATA[
+	      FROM TAB_SITE T WHERE ROWNUM <500 ORDER BY TO_NUMBER(SITE_CODE)
+	       ]]>
+	</select>
+	
+	<!-- 查询两小时区间更新数据 -->
+	<select id="queryUpdateSite" parameterClass="java.util.Map" resultMap="SiteResult">
+	      SELECT 
+	      <include refid="SiteSql" />
+	      ,(SELECT SITE_CODE FROM TAB_SITE WHERE SITE_NAME = T.SUPERIOR_SITE) SUPERIOR_SITE
+	      ,NVL(CENTERSITESIGN , '') CENTERSITESIGN,(SELECT CENTERSITESIGN FROM TAB_SITE WHERE SITE_NAME = T.SUPERIOR_SITE) SUPER_CENTERSITESIGN
+	      ,(SELECT SITE_CODE FROM TAB_SITE  WHERE SITE_NAME = ((SELECT SUPERIOR_SITE FROM TAB_SITE WHERE SITE_NAME = T.SUPERIOR_SITE))) FIRST_CENTER_SITE_CODE
+	  <![CDATA[
+	      FROM TAB_SITE T WHERE T.SITE_CODE IN (73149, 75563)
+	       ]]>
+	</select>
+	<!-- (SYSDATE - TO_DSINTERVAL('0 2:00:00')) 前两小时 -->
+	<!-- UPDATE_DATE < SYSDATE AND UPDATE_DATE > (SYSDATE - TO_DSINTERVAL('0 02:00:00')) -->
+	<!-- <delete id="deleteSiteBySend" parameterClass="java.util.Map">
+        DELETE FROM TAB_SITE WHERE SITE_CODE = #siteCode#
+	</delete> -->
+</sqlMap>

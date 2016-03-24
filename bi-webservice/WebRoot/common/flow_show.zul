@@ -1,0 +1,48 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:w="http://www.zkoss.org/2005/zk/client">
+
+	<window title="流程状态查看" border="normal" id="winFlowShow" >
+		<zscript>
+	Integer x, y, w, h, tipx, tipy;
+	String img_path = (String) Executions.getCurrent().getArg().get("img_path");
+	x = Integer.parseInt(Executions.getCurrent().getArg().get("x").toString()) - 2;//嵌入div后在x方向上产生的偏量
+	y = Integer.parseInt(Executions.getCurrent().getArg().get("y").toString()) - 2;//嵌入div后在y方向上产生的偏量
+	w = Integer.parseInt(Executions.getCurrent().getArg().get("w").toString());
+	h = Integer.parseInt(Executions.getCurrent().getArg().get("h").toString());
+	gridHeight=Integer.parseInt(Executions.getCurrent().getArg().get("gridHeight").toString());
+	winHeight=gridHeight+40;
+	
+	rowWidth= Integer.parseInt(Executions.getCurrent().getArg().get("winWidth").toString())-100;
+	tipx = x + w / 3;
+	tipy = y + h + 10;
+</zscript>
+<grid style="overflow-y:auto;border:0;" height="${winHeight}px" fixedLayout="true">
+			<rows>
+			<row style="border:0px" width="${rowWidth}">
+			   <grid style="border:0;" height="${gridHeight}px" fixedLayout="true" >
+			      <rows >
+			         <row style="border:0px" width="100%">
+			         <div>
+									<image id="img" src="${img_path}" />
+									<html>
+										<![CDATA[ <div
+										style="position:absolute;border:5px
+										solid
+										red;left:${x}px;top:${y}px;width:${w}px;height:${h}px;">
+										</div> ]]>
+                                    </html></div>
+                     </row>
+                     </rows>
+                     </grid>
+			</row>
+			<row  style="border:0px">
+			    <div align="center">
+						<button label="关闭" mold="os" width="80px"
+							height="26px"
+							onClick="winFlowShow.setVisible(false);winFlowShow.detach();" />
+				</div>
+			</row>
+			</rows>
+</grid>
+	</window>
+</zk>

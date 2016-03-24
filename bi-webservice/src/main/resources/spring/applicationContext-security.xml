@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:s="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd"
+	default-autowire="byType" default-lazy-init="true">
+
+	<description>SpringSecurity</description>
+	
+	
+	<!-- 配置没有权限访问页面,登录页面,首页,登出页面。缺省首页采用菜单在页面左边(outlook风格)， 如果要采用菜单上面，改成index.zul -->  
+<!-- 	<s:http auto-config="true" access-denied-page="/common/403.jsp">
+		<s:form-login login-page="/common/login.zul" 
+					  authentication-failure-url="/common/login.zul" 
+					  default-target-url="/apps/index.zul"
+					  always-use-default-target="true" />
+		<s:logout logout-success-url="/common/logout.jsp" />
+	</s:http> -->
+	<!-- 配置权限检查时,角色和资源装置的service -->
+	<!-- <bean id="filterSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<s:custom-filter before="FILTER_SECURITY_INTERCEPTOR" />
+		<property name="objectDefinitionSource" ref="roleResourceLoadService" />
+	</bean> -->
+	
+	<!-- 配置用户认证时,提供用户信息的service,并制定密码加密的方式 -->
+	<!-- <s:authentication-provider user-service-ref="userService1">
+		<s:password-encoder hash="md5" />
+	</s:authentication-provider> -->
+
+	
+</beans>

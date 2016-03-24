@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- ServletContextResourceLoader定义从ServletContext中加载资源的ResourceLoader -->
+	
+	<bean id="passwordEncoder" class="com.thinkjf.core.encoder.impl.MD5TextEncoder"/>
+	
+	<bean id="velocityTemplateEngine" class="com.thinkjf.component.template.velocity.VelocityTemplateEngine">
+		<constructor-arg value="/"/>
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+       <property name="basenames">
+           <list>
+               <value>message-arb</value>
+               <value>message-basedata</value>
+               <value>message-common</value>
+               <value>message-enumdesc</value>
+               <value>message-fin</value>
+               <value>message-finlog</value>
+               <value>message-framework</value>
+               <value>message-global</value>
+               <value>message-kpi</value>
+               <value>message-monitor</value>
+               <value>message-news</value>
+               <value>message-operation</value>
+               <value>message-problem</value>
+               <value>message-quote</value>
+               <value>message-security</value>
+               <value>message-storage</value>
+               <value>message-chargechart</value>
+               <value>message-statistics</value>
+               <value>message-static-workflow</value>
+               <value>message-networkpayment</value>
+               <value>message-orders</value>
+               <value>message-ops</value>
+               <value>message-sms</value>
+               <value>message-selfdispatch</value>
+               <value>message-car</value>
+               <value>message-receipt-query</value>
+               <value>message-customs</value>
+               <value>message-export</value>
+               <value>message-export-type</value>
+           </list>
+       </property>
+    </bean>
+    
+</beans>
